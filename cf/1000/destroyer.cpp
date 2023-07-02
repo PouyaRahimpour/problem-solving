@@ -26,7 +26,6 @@ mt19937 rnd(chrono::steady_clock::now().time_since_epoch().count());
 #else
 #define fastio() ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 #define debug(x)
-#define arrdebug(x, s)
 #endif
 void _print(const int& t) {cout << t;} void _print(const ll& t) {cout << t;} void _print(const char& t) {cout << t;} void _print(const string& t) {cout << t;} void _print(const ld& t) {cout << t;} void _print(const double& t) {cout << t;}
 template <class T, class V> void _print(const pair<T, V>& p) {cout << "{"; _print(p.ff); cout << ","; _print(p.ss); cout << "}";}
@@ -36,47 +35,34 @@ template <class T> void _print(const multiset<T>& v) {cout << "[ "; for (T i : v
 template <class T, class V> void _print(const map<T, V>& v) {cout << "[ "; for (auto i : v) {_print(i); cout << " ";} cout << "]";}
 template <class T> void _print(const T& a, int s) { cout << "[ "; for (auto i: a) { if(!s--) break;_print(i); cout << " "; } cout << "]"; }
 /*******************************************************************************/
-int m;
-string t = "";
-string l, r;
-string s;
-bool found = false;
 
-bool check(string pass) {
-    int pt = 0;
-    int i=0;
-    for (int j=0; j<pass.length(); j++) {
-        while (i<s.length() && s[i] != pass[j]) {
-            i++;
-        }
-        if (i<s.length()) {pt++;}
-        i++;
-    }
-    return pt!=m;
-}
 
-void bt(int ind) {
-    if (found) return;
-    if (ind==m) {
-        if (check(t)) {
-            found = true;
-        }
-        return;
-    }
-    for (int j=l[ind]-'0'; j<=r[ind]-'0'; j++) {
-        string x = t;
-        t += j+'0';
-        bt(ind+1);
-        t = x;
-    }
-}
+const int maxn = 200+10;
+int a[maxn];
+int freq[maxn];
+
 int solve() {
-    cin >> s;
-    cin >> m;
-    cin >> l >> r;
-    found = false;
-    bt(0);
-    cout << (found?"YES":"NO") << nl;
+    int n; cin >> n;
+    fill(freq+0, freq+maxn, 0);
+    for (int i=0; i<n; i++) {
+        cin >> a[i];
+        freq[a[i]]++;
+    }
+    bool ok = true;
+
+    for (int i=0; i< 99; i++) {
+        if (freq[i] <freq[i+1]) {
+            ok = false;
+            //debug(i)
+            break;
+        }
+    }
+    //arrdebug(freq, 100);
+    cout << (ok?"YES":"NO") << nl;
+
+
+
+
 	return 0;
 }
 

@@ -36,47 +36,34 @@ template <class T> void _print(const multiset<T>& v) {cout << "[ "; for (T i : v
 template <class T, class V> void _print(const map<T, V>& v) {cout << "[ "; for (auto i : v) {_print(i); cout << " ";} cout << "]";}
 template <class T> void _print(const T& a, int s) { cout << "[ "; for (auto i: a) { if(!s--) break;_print(i); cout << " "; } cout << "]"; }
 /*******************************************************************************/
-int m;
-string t = "";
-string l, r;
-string s;
-bool found = false;
 
-bool check(string pass) {
-    int pt = 0;
-    int i=0;
-    for (int j=0; j<pass.length(); j++) {
-        while (i<s.length() && s[i] != pass[j]) {
-            i++;
-        }
-        if (i<s.length()) {pt++;}
-        i++;
-    }
-    return pt!=m;
-}
 
-void bt(int ind) {
-    if (found) return;
-    if (ind==m) {
-        if (check(t)) {
-            found = true;
-        }
-        return;
-    }
-    for (int j=l[ind]-'0'; j<=r[ind]-'0'; j++) {
-        string x = t;
-        t += j+'0';
-        bt(ind+1);
-        t = x;
-    }
+bool cmp(array<ll, 3>& a, array<ll,3>& b) {
+    ll x = a[0]*b[1] - a[1]*b[0];
+    if (x==0)
+        return a[2] < b[2];
+    return x>0;
+
 }
 int solve() {
-    cin >> s;
-    cin >> m;
-    cin >> l >> r;
-    found = false;
-    bt(0);
-    cout << (found?"YES":"NO") << nl;
+    int n; cin >> n;
+    int a, b;
+    vector<array<ll, 3>> v;
+    for (int i=0; i<n; i++) {
+        cin >> a >> b;
+        v.pb({a, a+b, i});
+    }
+    sort(all(v), cmp);
+    //debug(v)
+    /*
+    for (int i=0; i<n; i++) {
+        cout << v[i][0] << " " << v[i][1] << " " << v[i][2] << nl;
+    }
+    */
+    for (int i=0; i<n; i++) {
+        cout << v[i][2]+1 << nl[i==n-1];
+    }
+
 	return 0;
 }
 
@@ -84,7 +71,7 @@ int main() {
     fastio();
 
 	int T = 1;
-	cin >> T;
+	//cin >> T;
 	while (T--) {
 		if (solve()) {
 			break;

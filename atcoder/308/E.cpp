@@ -36,47 +36,32 @@ template <class T> void _print(const multiset<T>& v) {cout << "[ "; for (T i : v
 template <class T, class V> void _print(const map<T, V>& v) {cout << "[ "; for (auto i : v) {_print(i); cout << " ";} cout << "]";}
 template <class T> void _print(const T& a, int s) { cout << "[ "; for (auto i: a) { if(!s--) break;_print(i); cout << " "; } cout << "]"; }
 /*******************************************************************************/
-int m;
-string t = "";
-string l, r;
-string s;
-bool found = false;
 
-bool check(string pass) {
-    int pt = 0;
-    int i=0;
-    for (int j=0; j<pass.length(); j++) {
-        while (i<s.length() && s[i] != pass[j]) {
-            i++;
-        }
-        if (i<s.length()) {pt++;}
-        i++;
-    }
-    return pt!=m;
-}
+const int maxn = 2e5+10;
+int p[maxn];
+pii cpn[maxn];
+int cnt[maxn];
 
-void bt(int ind) {
-    if (found) return;
-    if (ind==m) {
-        if (check(t)) {
-            found = true;
-        }
-        return;
-    }
-    for (int j=l[ind]-'0'; j<=r[ind]-'0'; j++) {
-        string x = t;
-        t += j+'0';
-        bt(ind+1);
-        t = x;
-    }
-}
 int solve() {
-    cin >> s;
-    cin >> m;
-    cin >> l >> r;
-    found = false;
-    bt(0);
-    cout << (found?"YES":"NO") << nl;
+    int n, m; cin >> n >> m;
+    ll sum = 0, dis = 0;
+    for (int i=0; i<n; i++) {cin >> p[i]; sum+=p[i];}
+    for (int i=0; i<n; i++) cin >> cpn[i].ff;
+    for (int i=0; i<n; i++) cin >> cpn[i].ss;
+
+    sort(p, p+n);
+    sort(cpn, cpn+m);
+
+    for (int i=0; i<m; i++) {
+        int ind = lower_bound(p, p+n, cpn[i].ff)-p;
+        cnt[i] = n-ind;
+    }
+    for (int i=m-1; i>=0; i--) {
+
+    }
+
+
+
 	return 0;
 }
 

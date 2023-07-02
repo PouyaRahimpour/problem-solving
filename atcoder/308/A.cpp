@@ -36,47 +36,30 @@ template <class T> void _print(const multiset<T>& v) {cout << "[ "; for (T i : v
 template <class T, class V> void _print(const map<T, V>& v) {cout << "[ "; for (auto i : v) {_print(i); cout << " ";} cout << "]";}
 template <class T> void _print(const T& a, int s) { cout << "[ "; for (auto i: a) { if(!s--) break;_print(i); cout << " "; } cout << "]"; }
 /*******************************************************************************/
-int m;
-string t = "";
-string l, r;
-string s;
-bool found = false;
 
-bool check(string pass) {
-    int pt = 0;
-    int i=0;
-    for (int j=0; j<pass.length(); j++) {
-        while (i<s.length() && s[i] != pass[j]) {
-            i++;
-        }
-        if (i<s.length()) {pt++;}
-        i++;
-    }
-    return pt!=m;
-}
+const int n = 8;
+int a[n];
 
-void bt(int ind) {
-    if (found) return;
-    if (ind==m) {
-        if (check(t)) {
-            found = true;
-        }
-        return;
-    }
-    for (int j=l[ind]-'0'; j<=r[ind]-'0'; j++) {
-        string x = t;
-        t += j+'0';
-        bt(ind+1);
-        t = x;
-    }
-}
 int solve() {
-    cin >> s;
-    cin >> m;
-    cin >> l >> r;
-    found = false;
-    bt(0);
-    cout << (found?"YES":"NO") << nl;
+    for (int i=0; i<n; i++) cin >> a[i];
+    bool cond = true;
+    for (int i=0; i<n-1; i++) {
+        if (a[i] > a[i+1]) {
+            cond = false;
+            break;
+        }
+        if (a[i] > 675 || a[i]<100) {
+            cond = false;
+            break;
+        }
+        if (a[i]%25!=0) {
+            cond = false;
+            break;
+        }
+    }
+    cout << (cond?"Yes":"No") << nl;
+
+
 	return 0;
 }
 
@@ -84,7 +67,7 @@ int main() {
     fastio();
 
 	int T = 1;
-	cin >> T;
+	//cin >> T;
 	while (T--) {
 		if (solve()) {
 			break;
