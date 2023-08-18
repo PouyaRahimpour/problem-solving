@@ -28,16 +28,24 @@ int solve() {
 
     ll sum = 0;
     int d = b.length()-a.length();
-    if (b.length()!=a.length()) {
-        cout << "hey" << endl;
+    if (d!=0) {
         int ind = 0;
-        while (a.length()+ind<b.length()) {
-            sum += abs(b[ind]-'0');
-            ind++;
+        int t = d;
+        while (t--) {
+            if (b[ind]=='9') {
+                sum+=9;
+                ind++;
+                continue;
+            }
+            if (b[ind+1]!='9') {
+                sum+=b[ind]-1;
+                sum+=9*(d-ind);
+
+            }
         }
         //cout << sum << endl;
-        sum += 9*(b.length()-a.length());
-    } else if (b.length()==a.length()){
+        sum += 9*(a.length());
+    } else if (d==0){
         int ind = 0;
         while (ind<b.length() && abs(b[ind]-a[ind])==0) {
             ind++;
